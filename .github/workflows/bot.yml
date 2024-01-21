@@ -10,7 +10,7 @@ jobs:
     name: instructions
     runs-on: ubuntu-latest
     steps:
-       - run: curl https://notify-api.is-a.dev/pr/merged/${{ github.event.pull_request.number }}
+         # - run: curl https://notify-api.is-a.dev/pr/merged/${{ github.event.pull_request.number }}
          if: github.event.action == 'closed' && github.event.pull_request.merged == true
 #      - uses: actions/checkout@v2
 #      - name: Comment
