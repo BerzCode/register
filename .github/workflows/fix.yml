@@ -1,0 +1,40 @@
+name: Fix Workflow
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  fix:
+    name: Fix
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Run Fix Script
+        run: |
+          env:
+            INPUT_MY_ENV_VAR: ${{ secrets.MY_SECRET }}
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        run: |
+          # - run: curl https://notify-api.is-a.dev/pr/merged/${{ github.event.pull_request.number }}
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+        types:
+          - closed
+
+      - if: github.event.action == 'closed' && github.event.pull_request.merged == true
+      - if: github.event.action == 'closed' && github.event.pull_request.merged == true
+      - name: Comment on PR
+        uses: actions/github-script@0.9.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const newComment = 'Your fix status or any relevant information';
+            const issue_number = context.issue.number;
+            console.log(`Adding comment to PR#${issue_number}: ${newComment}`);
+            github.issues.createComment({
+              issue_number,
+              body: newComment
+            });
