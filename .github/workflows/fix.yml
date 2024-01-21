@@ -1,0 +1,20 @@
+name: Fix Workflow
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  fix:
+    name: Fix
+    runs-on: ubuntu-latest
+    steps:
+      - name: Commented Out Step
+        run: |
+          # - run: curl https://notify-api.is-a.dev/pr/merged/${{ github.event.pull_request.number }}
+        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+
+      - name: New Step
+        run: |
+          # Add the necessary fix here
