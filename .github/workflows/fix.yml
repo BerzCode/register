@@ -24,7 +24,15 @@ jobs:
           - closed
 
       - if: github.event.action == 'closed' && github.event.pull_request.merged == true
-      - name: New Step
-        run: |
-          # Add the necessary fix here
-        if: github.event.action == 'closed' && github.event.pull_request.merged == true
+      - name: Comment on PR
+        uses: actions/github-script@0.9.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const newComment = 'Your fix status or any relevant information';
+            const issue_number = context.issue.number;
+            console.log(`Adding comment to PR#${issue_number}: ${newComment}`);
+            github.issues.createComment({
+              issue_number,
+              body: newComment
+            });
